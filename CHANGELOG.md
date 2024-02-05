@@ -6,8 +6,12 @@
 #    By: YohanGH <YohanGH@proton.me>                    //    ''     Code      #
 #                                                      (|     | )              #
 #    Created: 2024/02/05 08:56:54 by YohanGH           '__   _/_               #
-#    Updated: 2024/02/05 08:57:12 by YohanGH          (___)=(___)              #
+#    Updated: 2024/02/05 11:01:00 by YohanGH          (___)=(___)              #
 #                                                                              #
 # **************************************************************************** #
 
-Hello World !
+# CHANGELOG
+
+## V1.0.0
+
+- Initial Version.

@@ -6,7 +6,7 @@
 #    By: YohanGH <YohanGH@proton.me>                    //    ''     Code      #
 #                                                      (|     | )              #
 #    Created: 2024/02/04 15:04:28 by YohanGH           '__   _/_               #
-#    Updated: 2024/02/05 10:00:29 by YohanGH          (___)=(___)              #
+#    Updated: 2024/02/05 11:00:14 by YohanGH          (___)=(___)              #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,7 @@ if ! command -v brew >/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-echo "\n---------------------------------------------------------------------\n"
-
-# Installe les dépendances nécessaires via Homebrew
+echo "\n --------------------------------------------------------------------- \n"
 
 # Vérification et installation de Homebrew
 if command -v brew >/dev/null 2>&1; then
@@ -32,7 +30,10 @@ else
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-echo "\n-----\n"
+echo "Mise à jour de Homebrew..."
+brew update
+
+echo "\n ----- \n"
 
 # Liste des dépendances à installer
 declare -a dependencies=("git" "curl" "tree" "htop" "tldr" "jq" "fzf" "httpie" "tmux" "python3")
@@ -49,9 +50,7 @@ done
 
 echo "Toutes les dépendances nécessaires ont été vérifiées et installées."
 
-echo "\n-----\n"
-
-echo "\n---------------------------------------------------------------------\n"
+echo "\n --------------------------------------------------------------------- \n"
 
 # Fonction pour vérifier la réussite du clonage/mise à jour
 check_success() {
@@ -63,7 +62,7 @@ check_success() {
     fi
 }
 
-echo "\n-----\n"
+echo "\n ----- \n"
 
 # Fonction pour cloner ou mettre à jour un dépôt
 clone_or_update_repo() {
@@ -84,7 +83,7 @@ clone_or_update_repo() {
     fi
 }
 
-echo "\n-----\n"
+echo "\n ----- \n"
 
 # Installation d'Oh My Zsh
 if [ -d "$HOME/.oh-my-zsh" ]; then
@@ -95,7 +94,7 @@ else
     check_success
 fi
 
-echo "\n-----\n"
+echo "\n ----- \n"
 
 # Configuration pour zshrc et Vim
 CONFIG_ZSHRC_URL="https://github.com/YohanGH/Configuration_zshrc"
@@ -118,7 +117,7 @@ clone_or_update_repo $CONFIG_VIM_URL $CONFIG_VIM_DIR
 clone_or_update_repo https://github.com/zsh-users/zsh-autosuggestions $ZSH_AUTOSUGGESTIONS_DIR
 clone_or_update_repo https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_SYNTAX_HIGHLIGHTING_DIR
 
-echo "\n-----\n"
+echo "\n ----- \n"
 
 # Téléchargez et installez Powerlevel10k
 echo -e "\nInstallation de Powerlevel10k..."
@@ -129,20 +128,22 @@ else
     echo "Powerlevel10k est déjà installé."
 fi
 
-echo "\n-----\n"
+echo "\n ----- \n"
 
 # Déplacez les fichiers de configuration, s'ils existent
-echo -e "\nDéplacement des fichiers de configuration..."
+echo -e "\nDéplacement des fichiers de configuration zshrc"
 
 if [ -f "$CONFIG_ZSHRC_DIR/zshrc" ]; then
     cp "$CONFIG_ZSHRC_DIR/zshrc" "$HOME/.zshrc"
 	check_success
-
 else
     echo "Le fichier zshrc est introuvable, vérifiez le dépôt $CONFIG_ZSHRC_URL."
 fi
 
-echo "\n-----\n"
+echo "\n ----- \n"
+
+echo -e "\nDéplacement des fichiers de configuration vimrc"
+
 
 if [ -f "$CONFIG_VIM_DIR/.vimrc" ]; then
     cp "$CONFIG_VIM_DIR/.vimrc" "$HOME/.vimrc"
@@ -151,7 +152,7 @@ else
     echo "Le fichier vimrc est introuvable, vérifiez le dépôt $CONFIG_VIM_URL."
 fi
 
-echo "\n-----\n"
+echo "\n ----- \n"
 
 # Après la fonction clone_or_update_repo pour CONFIG_ZSHRC_DIR
 if [ -f "$CONFIG_ZSHRC_DIR/my-alias.zsh" ]; then
@@ -162,7 +163,7 @@ else
     echo "Le fichier my-alias.zsh est introuvable dans $CONFIG_ZSHRC_DIR."
 fi
 
-echo "\n---------------------------------------------------------------------\n"
+echo "\n --------------------------------------------------------------------- \n"
 
 # Emplacement de base pour la création de l'arborescence GTD
 BASE_DIR="$HOME/Documents/GTD"
@@ -201,7 +202,19 @@ declare -a FOLDERS=(
     "Template"
 )
 
-echo "\n-----\n"
+echo "\n ----- \n"
+
+echo "Création de l'arborescence GTD dans $BASE_DIR :"
+
+echo "\n ----- \n"
+
+# Création de l'arborescence
+for folder in "${FOLDERS[@]}"; do
+    mkdir -p "$BASE_DIR/$folder"
+    print_tree "$folder"
+done
+
+echo "\n ----- \n"
 
 # Fonction pour afficher l'arborescence avec `tree`
 print_tree() {
@@ -214,20 +227,8 @@ print_tree() {
     fi
 }
 
-echo "Création de l'arborescence GTD dans $BASE_DIR :"
-
-echo "\n-----\n"
-
-# Création de l'arborescence
-for folder in "${FOLDERS[@]}"; do
-    mkdir -p "$BASE_DIR/$folder"
-    print_tree "$folder"
-done
-
-echo "\n-----\n"
-
 echo "L'arborescence GTD a été créée avec succès dans $BASE_DIR."
 
-echo "---------------------------------------------------------------------"
+echo "\n --------------------------------------------------------------------- \n"
 
 echo -e "\nConfiguration terminée."
