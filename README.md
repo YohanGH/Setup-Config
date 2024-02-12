@@ -11,6 +11,16 @@
 #                                                                              #
 # **************************************************************************** #
 ```
+---
+
+
+[IMPORTANT] : FIX : CONFIGS-PATH.SH AND SETUP-CONFIGSi-Opti.SH
+
+- Err L57 : configs-path (code fonctionel)
+- Err : Permission Setup-config-opti (Dependance Homebrew)
+
+
+---
 
 # Configuration de l'Environnement macOS pour le Développement
 
