@@ -6,7 +6,7 @@
 #    By: YohanGH <YohanGH@proton.me>                    //    ''     Code      #
 #                                                      (|     | )              #
 #    Created: 2024/02/12 10:26:56 by YohanGH           '__   _/_               #
-#    Updated: 2024/02/12 10:47:02 by YohanGH          (___)=(___)              #
+#    Updated: 2024/02/12 11:17:58 by YohanGH          (___)=(___)              #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,17 @@ for app in "${dependencies[@]}"; do
     brew install $app
     end_operation "Installation/Verification de ${app}"
 done
+
+# Installation de Oh My Zsh
+start_operation "Installation de Oh My Zsh"
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "Installation de Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    check_success
+else
+    echo "Oh My Zsh est déjà installé."
+fi
+end_operation "Installation de Oh My Zsh"
 
 # Installation de nvm (Node Version Manager)
 start_operation "Installation de nvm (Node Version Manager)"

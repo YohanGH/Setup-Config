@@ -11,6 +11,7 @@
 #                                                                              #
 # **************************************************************************** #
 ```
+
 # Configuration de l'Environnement macOS pour le Développement
 
 Ce dépôt contient un script Bash pour configurer automatiquement un nouvel environnement de développement sur macOS. Il installe et configure des outils essentiels pour le développement, incluant des utilitaires de ligne de commande, des applications communes utilisées par les développeurs, et des configurations personnalisées pour améliorer l'efficacité du terminal et de l'éditeur de code.
@@ -34,7 +35,33 @@ Le script automatise les tâches suivantes :
 
 ## Utilisation
 
-Pour utiliser ce script :
+1) Configuration PATH :
+
+1. Téléchargez le script `setup-config.sh` depuis ce dépôt.
+2. Ouvrez le Terminal.
+3. Accordez les droits d'exécution au script avec la commande :
+    ```
+    chmod +x setup-config.sh
+    ```
+4. Exécutez le script avec :
+    ```
+    ./setup-config.sh
+    ```
+5. Suivez les instructions à l'écran pour terminer la confi
+
+2) Setup Configuration Opti :
+
+1. Téléchargez le script `setup-config.sh` depuis ce dépôt.
+2. Ouvrez le Terminal.
+3. Accordez les droits d'exécution au script avec la commande :
+    ```
+    chmod +x setup-config.sh
+    ```
+4. Exécutez le script avec :
+    ```
+    ./setup-config.sh
+    ```
+5. Suivez les instructions à l'écran pour terminer la confi :
 
 1. Téléchargez le script `setup-config.sh` depuis ce dépôt.
 2. Ouvrez le Terminal.
@@ -59,4 +86,5 @@ Les contributions à ce script sont les bienvenues. Si vous avez des suggestions
 ## Licence
 
 Ce script est distribué sous la licence GPL. Voir le fichier `LICENSE` pour plus de détails.
+
 
