@@ -6,7 +6,7 @@
 #    By: YohanGH <YohanGH@proton.me>                    //    ''     Code      #
 #                                                      (|     | )              #
 #    Created: 2024/02/04 15:04:28 by YohanGH           '__   _/_               #
-#    Updated: 2024/02/05 11:00:14 by YohanGH          (___)=(___)              #
+#    Updated: 2024/02/12 10:12:27 by YohanGH          (___)=(___)              #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,38 +14,30 @@
 
 echo "Début de la configuration de l'environnement..."
 
-# Vérifie si Homebrew est installé, sinon l'installe
-if ! command -v brew >/dev/null; then
-    echo "Installation de Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
 echo "\n --------------------------------------------------------------------- \n"
 
 # Vérification et installation de Homebrew
-if command -v brew >/dev/null 2>&1; then
-    echo "Homebrew est déjà installé."
-else
+if ! command -v brew >/dev/null 2>&1; then
     echo "Installation de Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo "Homebrew est déjà installé."
 fi
 
-echo "Mise à jour de Homebrew..."
+echo "\nMise à jour de Homebrew..."
 brew update
 
+# Liste des dépendances à installer
+
+echo "\n ----- \n"
+echo "Installation des dépendances nécessaires..."
 echo "\n ----- \n"
 
-# Liste des dépendances à installer
 declare -a dependencies=("git" "curl" "tree" "htop" "tldr" "jq" "fzf" "httpie" "tmux" "python3")
 
-# Vérification et installation des dépendances via Homebrew
 for app in "${dependencies[@]}"; do
-    if brew list --formula | grep -q "^${app}\$"; then
-        echo "${app} est déjà installé."
-    else
-        echo "Installation de ${app}..."
-        brew install $app
-    fi
+    echo "Installation/Verification de ${app}..."
+    brew install $app
 done
 
 echo "Toutes les dépendances nécessaires ont été vérifiées et installées."
@@ -84,17 +76,40 @@ clone_or_update_repo() {
 }
 
 echo "\n ----- \n"
-
 # Installation d'Oh My Zsh
-if [ -d "$HOME/.oh-my-zsh" ]; then
-    echo "Oh My Zsh est déjà installé."
-else
-    echo "Installation d'Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+echo "\nInstallation de nvm (Node Version Manager)..."
+if [ ! -d "$HOME/.nvm" ]; then
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    # Charger nvm sans redémarrer le terminal
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
     check_success
+else
+    echo "nvm est déjà installé."
 fi
 
 echo "\n ----- \n"
+
+# S'assure que nvm est chargé pour ce script
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+echo "\n ----- \n"
+# Installation de Node.js
+
+echo "\nInstallation de la dernière version de Node.js via nvm..."
+nvm install node
+nvm use node
+
+echo "\n ----- \n"
+# Instalation de Prettier
+
+echo "\nInstallation de Prettier..."
+npm install -g prettier
+
 
 # Configuration pour zshrc et Vim
 CONFIG_ZSHRC_URL="https://github.com/YohanGH/Configuration_zshrc"
